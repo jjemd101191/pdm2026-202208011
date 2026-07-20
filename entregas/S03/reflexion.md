@@ -1,3 +1,0 @@
-Lo que yo asumía al principio: Que Luis usaba el celular hasta tarde por exceso de tareas o por notificaciones molestar que lo despertaban a media noche. 
-Lo que el mapa me desmintió: Luis no agarra el celular por trabajo ni notificaciones; lo hace por aburrimiento al acostarse, y su mayor dolor es que pierde el rastro del tiempo sin darse cuenta hasta que es tarde y siente culpa porque le gusta monitorear su tiempo. 
-Donde está la mayor oportunidad: En la transición F2-F3, en los primeros minutos al acostarse, crean un aviso o una barrear suave de desconexión que evite el ciclo del scroll pasivo antes de caer en la frustración de la madrugada. 
