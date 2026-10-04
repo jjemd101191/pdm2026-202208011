@@ -23,29 +23,27 @@ class PantallaPedido extends StatefulWidget {
 }
 
 class _PantallaPedidoState extends State<PantallaPedido> {
-  int cantidadCafe = 0;
-  int cantidadSandwich = 0;
-  int cantidadJugo = 0;
+  static const List<Producto> productos = [
+    Producto(nombre: 'Café', precio: 10.0),
+    Producto(nombre: 'Sándwich', precio: 25.0),
+    Producto(nombre: 'Jugo', precio: 12.0),
+  ];
 
-  void _cambiarCafe(int delta) {
-    setState(() {
-      final nueva = cantidadCafe + delta;
-      if (nueva >= 0) {
-        cantidadCafe = nueva;
-      }
-    });
+  late List<int> cantidades;
+
+  @override
+  void initState() {
+    super.initState();
+    cantidades = List.filled(productos.length, 0);
   }
 
-  Widget _filaEstatica(String nombre, String precio) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Expanded(child: Text(nombre)),
-          Text(precio),
-        ],
-      ),
-    );
+  void _cambiarCantidad(int indice, int delta) {
+    setState(() {
+      final nueva = cantidades[indice] + delta;
+      if (nueva >= 0) {
+        cantidades[indice] = nueva;
+      }
+    });
   }
 
   @override
@@ -54,27 +52,42 @@ class _PantallaPedidoState extends State<PantallaPedido> {
       appBar: AppBar(title: const Text('Mi pedido')),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Café - Q10.00'),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () => _cambiarCafe(-1),
+          for (int i = 0; i < productos.length; i++)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    '${productos[i].nombre} - Q${productos[i].precio.toStringAsFixed(2)}',
                   ),
-                  Text('$cantidadCafe'),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () => _cambiarCafe(1),
-                  ),
-                ],
-              ),
-            ],
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () => _cambiarCantidad(i, -1),
+                    ),
+                    Text('${cantidades[i]}'),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () => _cambiarCantidad(i, 1),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+class Producto {
+  final String nombre;
+  final double precio;
+  const Producto({required this.nombre, required this.precio});
+
 }
