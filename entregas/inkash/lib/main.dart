@@ -85,10 +85,63 @@ class MyApp extends StatelessWidget {
                   Text('Ver todo', style: TextStyle(fontSize: 13)),
                 ],
               ),
+              filaMovimiento(
+                Icons.directions_bus,
+                'Uber al trabajo',
+                'Transporte . Tarjeta',
+                '- Q38.00',
+                'Hoy',
+              ),
+              filaMovimiento(
+                Icons.directions_bus,
+                'Súper La Torre',
+                'Súper y Comida . Tarjeta',
+                '- Q285.50',
+                'Ayer',
+              ),
+              filaMovimiento(
+                Icons.arrow_upward,
+                'Salario quincena',
+                'Ingreso . Banco'
+                '+ Q4,200.00',
+                'Ayer',
+              ),
+              filaMovmiento(
+                Icons.local_cafe,
+                'Café con Ana',
+                'Entretenimiento . Efectivo',
+                '- Q65.00',
+                'Ayer',
+              ),
+              filaMovimiento(
+                Icons.bolt,
+                'Recibo de luz (EGGSA',
+                'Servicios . Banco',
+                '- Q420.00',
+                'Lun 20',
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget filaMovimiento(
+  IconData icon,
+  String title,
+  String subtitle,
+  String amount,
+  String date,
+) {
+  return ListTile(
+    leading: Icon(icon),
+    title: Text(title),
+    subtitle: Text(subtitle),
+    trailing: Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [Text(amount), Text(date)],
+    ),
+  );
 }
