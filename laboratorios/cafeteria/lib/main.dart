@@ -53,31 +53,11 @@ class _PantallaPedidoState extends State<PantallaPedido> {
       body: Column(
         children: [
           for (int i = 0; i < productos.length; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    '${productos[i].nombre} - Q${productos[i].precio.toStringAsFixed(2)}',
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.remove),
-                      onPressed: () => _cambiarCantidad(i, -1),
-                    ),
-                    Text('${cantidades[i]}'),
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () => _cambiarCantidad(i, 1),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          ProductoPedido(
+            producto: productos[i],
+            cantidad: cantidades[i],
+            onIncrementar: () => _cambiarCantidad(i, 1),
+            onDecrementar: () => _cambiarCantidad(i, -1),
           ),
         ],
       ),
@@ -89,5 +69,69 @@ class Producto {
   final String nombre;
   final double precio;
   const Producto({required this.nombre, required this.precio});
+}
 
+class ProductoPedido extends StatelessWidget {
+  final Producto producto;
+  final int cantidad;
+  final VoidCallback onIncrementar;
+  final VoidCallback onDecrementar;
+
+  const ProductoPedido({
+    super.key,
+    required this.producto,
+    required this.cantidad,
+    required this.onIncrementar,
+    required this.onDecrementar,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  producto.nombre,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text('Q${producto.precio.toStringAsFixed(2)}',
+                     style: TextStyle(color: Colors.grey[700]),
+                    ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: onDecrementar,
+                icon: const Icon(Icons.remove_circle_outline),
+              ),
+              SizedBox(
+                width: 32,
+                child: Text(
+                  '$cantidad',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+              IconButton(
+                onPressed: onIncrementar,
+                icon: const Icon(Icons.add_circle_outline),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
